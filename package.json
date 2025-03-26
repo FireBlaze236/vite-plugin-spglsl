@@ -1,6 +1,7 @@
 {
   "name": "vite-plugin-spglsl",
-  "version": "1.0.0",
+  "type": "module",
+  "version": "1.0.1",
   "description": "Import WebGL shaders with spglsl support",
   "module": "dist/index.js",
   "main": "dist/index.js",
