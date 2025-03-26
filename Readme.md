@@ -25,7 +25,7 @@ pnpm add vite-plugin-spglsl -D
 
 ```js
 import { defineConfig } from 'vite';
- import viteSpglsl from "vite-plugin-spglsl";
+import viteSpglsl from "vite-plugin-spglsl";
 
 export default defineConfig({
   plugins: [viteSpglsl({
@@ -49,4 +49,10 @@ export default defineConfig({
     } 
   })]
 });
+```
+
+## Import your shaders in your vite project as follows
+
+```js
+import shader from './shader.vert'
 ```
