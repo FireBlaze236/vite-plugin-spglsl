@@ -1,0 +1,49 @@
+{
+  "name": "vite-plugin-spglsl",
+  "version": "1.0.0",
+  "description": "Import WebGL shaders with spglsl support",
+  "module": "dist/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fireblaze236/vite-plugin-spglsl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fireblaze236/vite-plugin-spglsl/issues"
+  },
+  "homepage": "https://github.com/fireblaze236/vite-plugin-spglsl#readme",
+  "keywords": [
+    "vite",
+    "plugin",
+    "webgl",
+    "shader",
+    "glsl",
+    "spglsl"
+  ],
+  "author": "fireblaze236",
+  "license": "MIT",
+  "peerDependencies": {
+    "vite": "^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0",
+    "spglsl": "^0.3.0"
+  },
+  "dependencies": {
+    "@rollup/pluginutils": "^5.1.4",
+    "spglsl": "^0.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.13",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.3",
+    "vitest": "^3.0.9",
+    "spglsl": "^0.3.0"
+  }
+}
