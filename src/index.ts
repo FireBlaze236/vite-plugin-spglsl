@@ -1,11 +1,12 @@
 import { transformWithEsbuild, type Plugin } from 'vite';
 import { spglslAngleCompile, SpglslAngleCompileInput, SpglslLanguage } from 'spglsl';
 import { createFilter } from '@rollup/pluginutils';
+import loadShader from './ustym/loadShader';
 
 interface Options {
   extensionMap: Map<string, string>,
   exclude?: string | string[],
-  spglslInput: SpglslAngleCompileInput,
+  spglslInput: SpglslAngleCompileInput
 }
 
 
@@ -41,8 +42,21 @@ export default function vitePluginSpglsl(options: Options): Plugin {
     async transform(code: string, id: string) {
       if (!filter(id)) return;
 
+      // GLSL Plugin
+      const { dependentChunks, outputShader } = loadShader(code, id, {
+        removeDuplicatedImports: true,
+        warnDuplicatedImports: true,
+        defaultExtension: ".glsl",
+        compress: false,
+        root: "/"
+      });
+
+      !prod && Array.from(dependentChunks.values())
+        .flat().forEach(chunk => this.addWatchFile(chunk));
+
+
       try {
-        options.spglslInput.mainSourceCode = code;
+        options.spglslInput.mainSourceCode = outputShader;
         const extension = getFileExtensionWithDot(id);
         options.spglslInput.language = options.extensionMap.get(extension);
 
@@ -54,9 +68,6 @@ export default function vitePluginSpglsl(options: Options): Plugin {
           cause: options.spglslInput,
         });
 
-        if (!prod) {
-          this.addWatchFile(id);
-        }
         return await transformWithEsbuild(result.output, id, {
           sourcemap: sourcemap ? sourcemap : "external",
           loader: 'text', format: 'esm',
